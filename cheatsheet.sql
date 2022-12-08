@@ -119,6 +119,17 @@ SELECT g.nama, m2.nama as pelajaran FROM mengajar m
 JOIN mapel m2 ON m2.kode = m.kode_mapel
 JOIN guru g ON g.nuptk = m.nuptk 
 
+--menampilkan pelajaran yang telah dan sedang diambil siswa
+SELECT DISTINCT s.nama, k.kode, k.nama as kelas, m2.kode, m2.nama as mapel, g.nuptk, g.nama as guru, j.tahun FROM ambil_kelas ak
+JOIN siswa s ON s.nis = ak.nis 
+JOIN jadwal j ON j.kode_kelas = ak.kode_kelas 
+JOIN guru g ON g.nuptk = j.nuptk 
+JOIN mengajar m ON g.nuptk = m.nuptk 
+JOIN mapel m2 ON m2.kode = m.kode_mapel 
+JOIN kelas k ON k.kode = ak.kode_kelas 
+WHERE ak.nis = '1234'
+
+
 --menampilkan jadwal guru 
 SELECT g.nama, k.nama as kelas, m2.nama as mapel, j.hari, j.jamke 
 FROM jadwal j 
@@ -135,5 +146,28 @@ JOIN kelas k ON k.kode = ak.kode_kelas
 JOIN walikelas w ON w.kode_kelas = k.kode 
 JOIN guru g ON g.nuptk = w.nuptk 
 WHERE ak.tahun = 2022
+
+--menampilkan rata2 tugas siswa semester 1 mapel MTK
+SELECT COUNT(n.id) as total, s.nama, m.nama as mapel, g.nama as guru, k.nama as kelas, AVG(n.nilai) as nilai, n.semester 
+FROM nilai n 
+JOIN siswa s ON s.nis = n.nis 
+JOIN mapel m ON m.kode = n.kode_mapel 
+JOIN guru g ON g.nuptk = n.nuptk 
+JOIN kelas k ON k.kode = n.kode_kelas 
+WHERE n.nis = '1234' AND n.kode_mapel = 'm1' AND n.semester = 1 AND n.jenis = 'tugas' 
+GROUP BY s.nama, m.nama, g.nama, k.nama, n.semester 
+
+--kehadiran siswa '1234' mapel 'm1' pada semester 1
+DROP FUNCTION IF EXISTS RangkumanKehadiran
+CREATE FUNCTION RangkumanKehadiran(@nis VARCHAR(10), @kode_mapel VARCHAR(10), @semester TINYINT)
+RETURNS TABLE
+AS
+RETURN (
+	SELECT k.keterangan, COUNT(k.id) as total FROM kehadiran k 
+	WHERE nis = @nis AND kode_mapel = @kode_mapel AND k.semester = @semester
+	GROUP BY k.keterangan
+)
+
+SELECT * FROM RangkumanKehadiran('1234', 'm1', 1)
 
 
