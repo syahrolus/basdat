@@ -1,5 +1,5 @@
 --USE sekolah
-
+ 
 DELETE FROM prestasi
 DELETE FROM nilai
 DELETE FROM capaian
@@ -223,3 +223,33 @@ INSERT INTO jadwal (id, kode_kelas, nuptk, hari, jamke, tahun, semester) VALUES 
 INSERT INTO jadwal (id, kode_kelas, nuptk, hari, jamke, tahun, semester) VALUES (71, 'kelas9', '555551', 'senin', 7, 2022, 5)
 INSERT INTO jadwal (id, kode_kelas, nuptk, hari, jamke, tahun, semester) VALUES (72, 'kelas9', '555551', 'senin', 8, 2022, 5)
  
+INSERT INTO nilai (id, nis, nuptk, kode_mapel, kode_kelas, semester, tahun, nilai, jenis) VALUES (1, '1234', '555551', 'm1', 'kelas1', 1, 2022, 80, 'uh')
+INSERT INTO nilai (id, nis, nuptk, kode_mapel, kode_kelas, semester, tahun, nilai, jenis) VALUES (2, '1234', '555551', 'm1', 'kelas1', 1, 2022, 90, 'tugas')
+INSERT INTO nilai (id, nis, nuptk, kode_mapel, kode_kelas, semester, tahun, nilai, jenis) VALUES (3, '1234', '555551', 'm1', 'kelas1', 1, 2022, 80, 'uh')
+INSERT INTO nilai (id, nis, nuptk, kode_mapel, kode_kelas, semester, tahun, nilai, jenis) VALUES (4, '1234', '555551', 'm1', 'kelas1', 1, 2022, 80, 'tugas')
+INSERT INTO nilai (id, nis, nuptk, kode_mapel, kode_kelas, semester, tahun, nilai, jenis) VALUES (5, '1234', '555551', 'm1', 'kelas1', 1, 2022, 100, 'uh')
+INSERT INTO nilai (id, nis, nuptk, kode_mapel, kode_kelas, semester, tahun, nilai, jenis) VALUES (6, '1234', '555551', 'm1', 'kelas1', 1, 2022, 60, 'tugas')
+INSERT INTO nilai (id, nis, nuptk, kode_mapel, kode_kelas, semester, tahun, nilai, jenis) VALUES (7, '1234', '555551', 'm1', 'kelas1', 1, 2022, 80, 'uts')
+INSERT INTO nilai (id, nis, nuptk, kode_mapel, kode_kelas, semester, tahun, nilai, jenis) VALUES (8, '1234', '555551', 'm1', 'kelas1', 1, 2022, 98, 'uas')
+
+INSERT INTO nilai (id, nis, nuptk, kode_mapel, kode_kelas, semester, tahun, nilai, jenis) VALUES (9, '1234', '555552', 'm2', 'kelas1', 1, 2022, 70, 'uh')
+INSERT INTO nilai (id, nis, nuptk, kode_mapel, kode_kelas, semester, tahun, nilai, jenis) VALUES (10, '1234', '555552', 'm2', 'kelas1', 1, 2022, 50, 'tugas')
+INSERT INTO nilai (id, nis, nuptk, kode_mapel, kode_kelas, semester, tahun, nilai, jenis) VALUES (11, '1234', '555552', 'm2', 'kelas1', 1, 2022, 60, 'uh')
+INSERT INTO nilai (id, nis, nuptk, kode_mapel, kode_kelas, semester, tahun, nilai, jenis) VALUES (12, '1234', '555552', 'm2', 'kelas1', 1, 2022, 80, 'tugas')
+INSERT INTO nilai (id, nis, nuptk, kode_mapel, kode_kelas, semester, tahun, nilai, jenis) VALUES (13, '1234', '555552', 'm2', 'kelas1', 1, 2022, 50, 'uh')
+INSERT INTO nilai (id, nis, nuptk, kode_mapel, kode_kelas, semester, tahun, nilai, jenis) VALUES (14, '1234', '555552', 'm2', 'kelas1', 1, 2022, 80, 'tugas')
+INSERT INTO nilai (id, nis, nuptk, kode_mapel, kode_kelas, semester, tahun, nilai, jenis) VALUES (15, '1234', '555552', 'm2', 'kelas1', 1, 2022, 90, 'uts')
+INSERT INTO nilai (id, nis, nuptk, kode_mapel, kode_kelas, semester, tahun, nilai, jenis) VALUES (16, '1234', '555552', 'm2', 'kelas1', 1, 2022, 100, 'uas')
+
+INSERT INTO kehadiran (id, nuptk, nis, kode_kelas, kode_mapel, pertemuan_ke, tanggal, semester, tahun, keterangan) VALUES (1, '555551', '1234', 'kelas1', 'm1', 1, '12-20-2022', 1, 2022, 'hadir')
+INSERT INTO kehadiran (id, nuptk, nis, kode_kelas, kode_mapel, pertemuan_ke, tanggal, semester, tahun, keterangan) VALUES (2, '555551', '1234', 'kelas1', 'm1', 2, '12-20-2022', 1, 2022, 'hadir')
+INSERT INTO kehadiran (id, nuptk, nis, kode_kelas, kode_mapel, pertemuan_ke, tanggal, semester, tahun, keterangan) VALUES (3, '555551', '1234', 'kelas1', 'm1', 3, '12-20-2022', 1, 2022, 'hadir')
+INSERT INTO kehadiran (id, nuptk, nis, kode_kelas, kode_mapel, pertemuan_ke, tanggal, semester, tahun, keterangan) VALUES (4, '555551', '1234', 'kelas1', 'm1', 4, '12-20-2022', 1, 2022, 'hadir')
+INSERT INTO kehadiran (id, nuptk, nis, kode_kelas, kode_mapel, pertemuan_ke, tanggal, semester, tahun, keterangan) VALUES (5, '555551', '1234', 'kelas1', 'm1', 5, '12-20-2022', 1, 2022, 'alpha')
+INSERT INTO kehadiran (id, nuptk, nis, kode_kelas, kode_mapel, pertemuan_ke, tanggal, semester, tahun, keterangan) VALUES (6, '555551', '1234', 'kelas1', 'm1', 6, '12-20-2022', 1, 2022, 'hadir')
+INSERT INTO kehadiran (id, nuptk, nis, kode_kelas, kode_mapel, pertemuan_ke, tanggal, semester, tahun, keterangan) VALUES (7, '555551', '1234', 'kelas1', 'm1', 7, '12-20-2022', 1, 2022, 'sakit')
+INSERT INTO kehadiran (id, nuptk, nis, kode_kelas, kode_mapel, pertemuan_ke, tanggal, semester, tahun, keterangan) VALUES (8, '555551', '1234', 'kelas1', 'm1', 8, '12-20-2022', 1, 2022, 'sakit')
+INSERT INTO kehadiran (id, nuptk, nis, kode_kelas, kode_mapel, pertemuan_ke, tanggal, semester, tahun, keterangan) VALUES (9, '555551', '1234', 'kelas1', 'm1', 9, '12-20-2022', 1, 2022, 'izin')
+INSERT INTO kehadiran (id, nuptk, nis, kode_kelas, kode_mapel, pertemuan_ke, tanggal, semester, tahun, keterangan) VALUES (10, '555551', '1234', 'kelas1', 'm1', 10, '12-20-2022', 1, 2022, 'hadir')
+INSERT INTO kehadiran (id, nuptk, nis, kode_kelas, kode_mapel, pertemuan_ke, tanggal, semester, tahun, keterangan) VALUES (11, '555551', '1234', 'kelas1', 'm1', 11, '12-20-2022', 1, 2022, 'hadir')
+INSERT INTO kehadiran (id, nuptk, nis, kode_kelas, kode_mapel, pertemuan_ke, tanggal, semester, tahun, keterangan) VALUES (12, '555551', '1234', 'kelas1', 'm1', 12, '12-20-2022', 1, 2022, 'hadir')
