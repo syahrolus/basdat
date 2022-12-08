@@ -155,7 +155,10 @@ CREATE TABLE kehadiran (
     nis VARCHAR(10) NOT NULL,
     kode_kelas VARCHAR(10),
     pertemuan_ke TINYINT,
-    tanggal DATE
+    tanggal DATE,
+    semester TINYINT,
+    tahun SMALLINT,
+    keterangan VARCHAR(20),
     
     CONSTRAINT PK_Kehadiran PRIMARY KEY (id),
     CONSTRAINT FK_kehadiran_mapel FOREIGN KEY (kode_mapel) REFERENCES mapel(kode),
@@ -214,3 +217,9 @@ CREATE TABLE jadwal (
 	CONSTRAINT PK_jadwal PRIMARY KEY(id),
 	CONSTRAINT FK_jadwal_kodekelas FOREIGN KEY (kode_kelas) REFERENCES kelas(kode),
 )
+
+
+
+
+
+
