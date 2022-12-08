@@ -115,47 +115,67 @@ DELETE FROM prestasi WHERE id = 10
 
 --FITUR
 --menampilkan daftar guru dan pelajaran diampu 
-SELECT g.nama, m2.nama as pelajaran FROM mengajar m 
-JOIN mapel m2 ON m2.kode = m.kode_mapel
-JOIN guru g ON g.nuptk = m.nuptk 
+CREATE VIEW Gurupelajaran
+AS
+	SELECT g.nama, m2.nama as pelajaran FROM mengajar m 
+	JOIN mapel m2 ON m2.kode = m.kode_mapel
+	JOIN guru g ON g.nuptk = m.nuptk 
 
+SELECT * FROM Gurupelajaran
+	
 --menampilkan pelajaran yang telah dan sedang diambil siswa '1234'
-SELECT DISTINCT s.nama, k.nama as kelas, m2.nama as mapel, g.nama as guru, j.tahun FROM ambil_kelas ak
-JOIN siswa s ON s.nis = ak.nis 
-JOIN jadwal j ON j.kode_kelas = ak.kode_kelas 
-JOIN guru g ON g.nuptk = j.nuptk 
-JOIN mengajar m ON g.nuptk = m.nuptk 
-JOIN mapel m2 ON m2.kode = m.kode_mapel 
-JOIN kelas k ON k.kode = ak.kode_kelas 
-WHERE ak.nis = '1234'
+CREATE VIEW Pelajaransiswa
+AS
+	SELECT DISTINCT s.nama, k.nama as kelas, m2.nama as mapel, g.nama as guru, j.tahun FROM ambil_kelas ak
+	JOIN siswa s ON s.nis = ak.nis 
+	JOIN jadwal j ON j.kode_kelas = ak.kode_kelas 
+	JOIN guru g ON g.nuptk = j.nuptk 
+	JOIN mengajar m ON g.nuptk = m.nuptk 
+	JOIN mapel m2 ON m2.kode = m.kode_mapel 
+	JOIN kelas k ON k.kode = ak.kode_kelas 
+	WHERE ak.nis = '1234'
+SELECT * FROM Pelajaransiswa
 
-
---menampilkan jadwal guru '555551' tahun 2022
-SELECT g.nama, k.nama as kelas, m2.nama as mapel, j.hari, j.jamke 
-FROM jadwal j 
-JOIN guru g ON g.nuptk = j.nuptk 
-JOIN kelas k ON k.kode = j.kode_kelas 
-JOIN mengajar m ON m.nuptk = g.nuptk 
-JOIN mapel m2 ON m2.kode = m.kode_mapel
-WHERE g.nuptk = '555552' AND j.tahun = 2022
+--menampilkan jadwal guru tahun 2022
+--DROP FUNCTION IF EXISTS Jadwalguru
+CREATE FUNCTION Jadwalguru(@nuptk VARCHAR(10), @tahun SMALLINT)
+RETURNS TABLE
+AS
+RETURN (
+	SELECT g.nama, k.nama as kelas, m2.nama as mapel, j.hari, j.jamke 
+	FROM jadwal j 
+	JOIN guru g ON g.nuptk = j.nuptk 
+	JOIN kelas k ON k.kode = j.kode_kelas 
+	JOIN mengajar m ON m.nuptk = g.nuptk 
+	JOIN mapel m2 ON m2.kode = m.kode_mapel
+	WHERE g.nuptk = @nuptk AND j.tahun = @tahun
+) 
+SELECT * FROM Jadwalguru('555552', 2022) 
 
 --menampilkan siswa, kelas, wali kelas tahun 2022
-SELECT s.nama, k.nama, g.nama as walikelas, k.tingkat FROM ambil_kelas ak 
-JOIN siswa s ON s.nis = ak.nis
-JOIN kelas k ON k.kode = ak.kode_kelas 
-JOIN walikelas w ON w.kode_kelas = k.kode 
-JOIN guru g ON g.nuptk = w.nuptk 
-WHERE ak.tahun = 2022
+--DROP VIEW Siswakelaswali 
+CREATE VIEW Siswakelaswali
+AS
+	SELECT s.nama, k.nama as kelas, g.nama as walikelas, k.tingkat FROM ambil_kelas ak 
+	JOIN siswa s ON s.nis = ak.nis
+	JOIN kelas k ON k.kode = ak.kode_kelas 
+	JOIN walikelas w ON w.kode_kelas = k.kode 
+	JOIN guru g ON g.nuptk = w.nuptk 
+SELECT * FROM Siswakelaswali s ORDER BY s.kelas 
 
---menampilkan rata2 tugas siswa semester 1 mapel MTK
-SELECT COUNT(n.id) as total, s.nama, m.nama as mapel, g.nama as guru, k.nama as kelas, AVG(n.nilai) as nilai, n.semester 
-FROM nilai n 
-JOIN siswa s ON s.nis = n.nis 
-JOIN mapel m ON m.kode = n.kode_mapel 
-JOIN guru g ON g.nuptk = n.nuptk 
-JOIN kelas k ON k.kode = n.kode_kelas 
-WHERE n.nis = '1234' AND n.kode_mapel = 'm1' AND n.semester = 1 AND n.jenis = 'tugas' 
-GROUP BY s.nama, m.nama, g.nama, k.nama, n.semester 
+--menampilkan rata2 tugas siswa
+--DROP VIEW Totaltugas 
+CREATE VIEW Totaltugas
+AS
+	SELECT s.nama, m.nama as mapel, g.nama as guru, k.nama as kelas, COUNT(n.id) as total_tugas, AVG(n.nilai) as nilai, n.semester 
+	FROM nilai n 
+	JOIN siswa s ON s.nis = n.nis 
+	JOIN mapel m ON m.kode = n.kode_mapel 
+	JOIN guru g ON g.nuptk = n.nuptk 
+	JOIN kelas k ON k.kode = n.kode_kelas 
+	WHERE n.jenis = 'tugas' 
+	GROUP BY s.nama, m.nama, g.nama, k.nama, n.semester 
+SELECT * FROM Totaltugas 
 
 --kehadiran siswa '1234' mapel 'm1' pada semester 1
 DROP FUNCTION IF EXISTS RangkumanKehadiran
