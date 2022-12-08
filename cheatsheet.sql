@@ -119,8 +119,8 @@ SELECT g.nama, m2.nama as pelajaran FROM mengajar m
 JOIN mapel m2 ON m2.kode = m.kode_mapel
 JOIN guru g ON g.nuptk = m.nuptk 
 
---menampilkan pelajaran yang telah dan sedang diambil siswa
-SELECT DISTINCT s.nama, k.kode, k.nama as kelas, m2.kode, m2.nama as mapel, g.nuptk, g.nama as guru, j.tahun FROM ambil_kelas ak
+--menampilkan pelajaran yang telah dan sedang diambil siswa '1234'
+SELECT DISTINCT s.nama, k.nama as kelas, m2.nama as mapel, g.nama as guru, j.tahun FROM ambil_kelas ak
 JOIN siswa s ON s.nis = ak.nis 
 JOIN jadwal j ON j.kode_kelas = ak.kode_kelas 
 JOIN guru g ON g.nuptk = j.nuptk 
@@ -130,14 +130,14 @@ JOIN kelas k ON k.kode = ak.kode_kelas
 WHERE ak.nis = '1234'
 
 
---menampilkan jadwal guru 
+--menampilkan jadwal guru '555551' tahun 2022
 SELECT g.nama, k.nama as kelas, m2.nama as mapel, j.hari, j.jamke 
 FROM jadwal j 
 JOIN guru g ON g.nuptk = j.nuptk 
 JOIN kelas k ON k.kode = j.kode_kelas 
 JOIN mengajar m ON m.nuptk = g.nuptk 
 JOIN mapel m2 ON m2.kode = m.kode_mapel
-WHERE g.nuptk = '555551' AND j.tahun = 2022
+WHERE g.nuptk = '555552' AND j.tahun = 2022
 
 --menampilkan siswa, kelas, wali kelas tahun 2022
 SELECT s.nama, k.nama, g.nama as walikelas, k.tingkat FROM ambil_kelas ak 
